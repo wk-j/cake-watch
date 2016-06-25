@@ -11,7 +11,7 @@ namespace Cake.Watch {
 			var watcher = new System.IO.FileSystemWatcher();
 			watcher.Path = settings.Path;
 			watcher.NotifyFilter =
-				System.IO.NotifyFilters.Size | System.IO.NotifyFilters.LastAccess | System.IO.NotifyFilters.LastWrite;
+				       System.IO.NotifyFilters.Size; // | System.IO.NotifyFilters.LastAccess | System.IO.NotifyFilters.LastWrite;
 			watcher.Filter = settings.Pattern;
 			watcher.EnableRaisingEvents = true;
 			watcher.IncludeSubdirectories = settings.Recursive;
