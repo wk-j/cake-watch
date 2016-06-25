@@ -1,5 +1,7 @@
 ## Cake.Watch
 
+Cake addin to watch files changed.
+
 ## Install
 
 ```
@@ -18,7 +20,7 @@ Task("watch-js")
 ```
 
 
-## Watch specify path
+## Watch specific path
 
 ```csharp
 Task("watch-path")
@@ -26,7 +28,7 @@ Task("watch-path")
         var settings = new WatchSettings {
             Recursive = true,
             Path = "./src",
-            Pattern = "*.*"
+            Pattern = "*.js"
         };
         Watch(settings, (changed) => {
             Console.WriteLine(changed);
