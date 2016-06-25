@@ -16,14 +16,15 @@ namespace Cake.Watch {
 			watcher.EnableRaisingEvents = true;
 			watcher.IncludeSubdirectories = settings.Recursive;
 
-			var lastRead = DateTime.MinValue;
+			var lastWatch = DateTime.MinValue;
 
 			Action<System.IO.FileSystemEventArgs> doWatch = (e) => {
 				var fullPath = e.FullPath;
 				var lastWriteTime = System.IO.File.GetLastWriteTime(fullPath);
-				if (lastWriteTime.Ticks != lastRead.Ticks) {
+				if (lastWriteTime.Ticks != lastWatch.Ticks) {
 					changedPath(fullPath);
 				}
+				lastWatch = lastWriteTime;
 			};
 
 			var locker = new Object();
