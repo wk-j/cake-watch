@@ -30,8 +30,10 @@ Task("pack")
     .Does(() => {
         CleanDirectory("./nuget");
         var dll = "./Cake.Watch/bin/Release/Cake.Watch.dll";
+        var full = new System.IO.FileInfo(dll).FullName;
         var version = ParseAssemblyInfo("./Cake.Watch/Properties/AssemblyInfo.cs").AssemblyVersion;
         var settings   = new NuGetPackSettings {
+                                        //ToolPath                = "./tools/nuget.exe",
                                         Id                      = "Cake.Watch",
                                         Version                 = version,
                                         Title                   = "Cake.Watch",
@@ -50,7 +52,7 @@ Task("pack")
                                         Symbols                 = false,
                                         NoPackageAnalysis       = true,
                                         Files                   = new [] {
-                                                                             new NuSpecContent { Source = dll, Target = "bin/net45" }
+                                                                             new NuSpecContent { Source = full, Target = "bin/net45" }
                                                                           },
                                         BasePath                = "./",
                                         OutputDirectory         = "./nuget"

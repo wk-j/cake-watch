@@ -1,6 +1,5 @@
 ﻿using System;
 
-
 namespace Cake.Watch {
 	public class FileWatch {
 		public void Watch(string filePath, Action<string> changedPath) {
