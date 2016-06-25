@@ -1,0 +1,61 @@
+
+var target = Argument("target", "default");
+var npi = EnvironmentVariable("npi");
+
+Task("push")
+    .IsDependentOn("pack")
+    .Description("Push nuget")
+    .Does(() => {
+        var nupkg = new DirectoryInfo("./nuget").GetFiles("*.nupkg").LastOrDefault();
+        var package = nupkg.FullName;
+        NuGetPush(package, new NuGetPushSettings {
+            Source = "https://www.nuget.org/api/v2/package",
+            ApiKey = npi
+        });
+    });
+
+Task("build")
+    .Description("Build")
+    .Does(() => {
+        DotNetBuild("./Cake.Watch.sln", settings =>
+            settings.SetConfiguration("Release")
+            //.SetVerbosity(Core.Diagnostics.Verbosity.Minimal)
+            .WithTarget("Build")
+            .WithProperty("TreatWarningsAsErrors","true"));
+    });
+
+Task("pack")
+    .Description("Create pack")
+    .IsDependentOn("build")
+    .Does(() => {
+        CleanDirectory("./nuget");
+        var dll = "./Cake.Watch/bin/Release/Cake.Watch.dll";
+        var version = ParseAssemblyInfo("./Cake.Watch/Properties/AssemblyInfo.cs").AssemblyVersion;
+        var settings   = new NuGetPackSettings {
+                                        Id                      = "Cake.Watch",
+                                        Version                 = version,
+                                        Title                   = "Cake.Watch",
+                                        Authors                 = new[] {"wk"},
+                                        Owners                  = new[] {"wk"},
+                                        Description             = "Cake.Watch",
+                                        //NoDefaultExcludes       = true,
+                                        Summary                 = "Watch file change",
+                                        ProjectUrl              = new Uri("https://github.com/wk-j/cake-watch"),
+                                        IconUrl                 = new Uri("https://github.com/wk-j/cake-watch"),
+                                        LicenseUrl              = new Uri("https://github.com/wk-j/cake-watch"),
+                                        Copyright               = "MIT",
+                                        ReleaseNotes            = new [] { "New version"},
+                                        Tags                    = new [] {"Cake", "Watch" },
+                                        RequireLicenseAcceptance= false,
+                                        Symbols                 = false,
+                                        NoPackageAnalysis       = true,
+                                        Files                   = new [] {
+                                                                             new NuSpecContent { Source = dll, Target = "bin/net45" }
+                                                                          },
+                                        BasePath                = "./",
+                                        OutputDirectory         = "./nuget"
+                                    };
+        NuGetPack(settings);
+    });
+
+RunTarget(target);
