@@ -2,8 +2,8 @@
 var target = Argument("target", "default");
 var npi = EnvironmentVariable("npi");
 
-Task("push")
-    .IsDependentOn("pack")
+Task("Publish-Nuget")
+    .IsDependentOn("Create-Nuget-Package")
     .Description("Push nuget")
     .Does(() => {
         var nupkg = new DirectoryInfo("./nuget").GetFiles("*.nupkg").LastOrDefault();
@@ -14,7 +14,7 @@ Task("push")
         });
     });
 
-Task("build")
+Task("Build-Release")
     .Description("Build")
     .Does(() => {
         DotNetBuild("./Cake.Watch.sln", settings =>
@@ -24,9 +24,9 @@ Task("build")
             .WithProperty("TreatWarningsAsErrors","true"));
     });
 
-Task("pack")
+Task("Create-Nuget-Package")
     .Description("Create pack")
-    .IsDependentOn("build")
+    .IsDependentOn("Build-Release")
     .Does(() => {
         CleanDirectory("./nuget");
         var dll = "./Cake.Watch/bin/Release/Cake.Watch.dll";

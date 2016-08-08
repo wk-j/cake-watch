@@ -11,27 +11,39 @@ Cake addin to watch files changed.
 ## Watch current path
 
 ```csharp
-Task("watch-js")
+Task("Watch-Only-Js")
     .Does(() => {
-        Watch("*.js", (changed) => {
-            Console.WriteLine(changed);
+        Watch("*.js", (changes) => {
+        	changes.ToList().ForEach(Console.WriteLine);
         });
     });
 ```
 
-
 ## Watch specific path
 
 ```csharp
-Task("watch-path")
+Task("Watch-With-Settings")
     .Does(() => {
         var settings = new WatchSettings {
             Recursive = true,
             Path = "./src",
             Pattern = "*.js"
         };
-        Watch(settings, (changed) => {
-            Console.WriteLine(changed);
+        Watch(settings, (changes) => {
+        	changes.ToList().ForEach(Console.WriteLine);
+        });
+    });
+```
+
+## Filter change period by Diff 
+
+```csharp
+Task("Last-Change-500ms")
+    .Does(() => {
+        Watch("*.js", (changes) => {
+        	Diff(500, () => {
+
+        	});
         });
     });
 ```
