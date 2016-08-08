@@ -42,7 +42,7 @@ Task("Last-Change-500ms")
     .Does(() => {
         Watch("*.js", (changes) => {
         	Diff(500, () => {
-
+	        	changes.ToList().ForEach(Console.WriteLine);
         	});
         });
     });
