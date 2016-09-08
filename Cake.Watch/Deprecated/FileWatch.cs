@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 namespace Cake.Watch {
+	[Obsolete("Use ChangeWatcher instead", true)]
     public class FileWatch {
         public void Watch(string pattern, Action<IEnumerable<string>> changedPath) {
             var settings = new WatchSettings { Pattern = pattern, Path = "./", Recursive = true };

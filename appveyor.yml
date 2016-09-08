@@ -1,0 +1,11 @@
+before_build:
+    - nuget restore
+
+build_script:
+    - cmd: .\build.cmd -target Build-Release
+
+artifacts:
+    - path: 
+
+version: 0.1.{build}
+test: off

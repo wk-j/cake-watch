@@ -1,5 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
+using System.Linq;
+
 namespace Cake.Watch.Tests {
 
 	[TestFixture()]
@@ -8,7 +10,7 @@ namespace Cake.Watch.Tests {
 		[Test()]
 		public void TestCase() {
 
-			var fileWatch = new FileWatch();
+			var fileWatch = new ChangeWatcher();
 			var settings = new WatchSettings {
 				Pattern = "*.cs",
 				Path = "../../",
@@ -16,7 +18,7 @@ namespace Cake.Watch.Tests {
 			};
 
 			fileWatch.Watch(settings, (changed) => {
-				Console.WriteLine(changed);
+				changed.ToList().ForEach(x => Console.WriteLine(x.FullPath));
 			});
 		}
 	}

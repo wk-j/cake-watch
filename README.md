@@ -14,7 +14,11 @@ Cake addin to watch files changed.
 Task("Watch-Only-Js")
     .Does(() => {
         Watch("*.js", (changes) => {
-        	changes.ToList().ForEach(Console.WriteLine);
+        	changes.ToList().ForEach(change => {
+                Console.WriteLine(change.Status);
+                Console.WriteLine(change.Name);
+                Console.WriteLine(change.FullPath);
+            });
         });
     });
 ```
@@ -30,24 +34,11 @@ Task("Watch-With-Settings")
             Pattern = "*.js"
         };
         Watch(settings, (changes) => {
-        	changes.ToList().ForEach(Console.WriteLine);
+            changes.ToList().ForEach(change => {
+                Console.WriteLine(change.Status);
+                Console.WriteLine(change.Name);
+                Console.WriteLine(change.FullPath);
+            });
         });
     });
 ```
-
-## Filter change period by Diff 
-
-```csharp
-Task("Last-Change-500ms")
-    .Does(() => {
-        Watch("*.js", (changes) => {
-        	Diff(500, () => {
-	        	changes.ToList().ForEach(Console.WriteLine);
-        	});
-        });
-    });
-```
-
-## License
-
-- MIT
