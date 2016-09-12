@@ -1,6 +1,12 @@
+#addin "nuget:?package=Cake.SquareLogo"
 
 var target = Argument("target", "default");
 var npi = EnvironmentVariable("npi");
+
+Task("Create-Logo").Does(() => {
+    var settings = new LogoSettings { Background = "Black" };
+    CreateLogo("W", "Assets/logo.png", settings);
+});
 
 Task("Publish-Nuget")
     .IsDependentOn("Create-Nuget-Package")
@@ -24,6 +30,8 @@ Task("Build-Release")
             .WithProperty("TreatWarningsAsErrors","true"));
     });
 
+// https://github.com/cake-addin/cake-square-logo/raw/master/Screen/alfresco.png
+
 Task("Create-Nuget-Package")
     .Description("Create pack")
     .IsDependentOn("Build-Release")
@@ -42,9 +50,9 @@ Task("Create-Nuget-Package")
                                         Description             = "Cake.Watch",
                                         //NoDefaultExcludes       = true,
                                         Summary                 = "Watch file change",
-                                        ProjectUrl              = new Uri("https://github.com/wk-j/cake-watch"),
-                                        IconUrl                 = new Uri("https://github.com/wk-j/cake-watch"),
-                                        LicenseUrl              = new Uri("https://github.com/wk-j/cake-watch"),
+                                        ProjectUrl              = new Uri("https://github.com/cake-addin/cake-watch"),
+                                        IconUrl                 = new Uri("https://github.com/cake-addin/cake-watch/raw/master/Assets/logo.png"),
+                                        LicenseUrl              = new Uri("https://github.com/cake-addin/cake-watch"),
                                         Copyright               = "MIT",
                                         ReleaseNotes            = new [] { "New version"},
                                         Tags                    = new [] {"Cake", "Watch" },
