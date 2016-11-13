@@ -1,16 +1,12 @@
 #addin "nuget:?package=Cake.SquareLogo"
+//#addin "nuget:?package=Cake.GithubUtility"
 
 var target = Argument("target", "default");
 var npi = EnvironmentVariable("npi");
 
 Task("Create-Logo").Does(() => {
-    var settings = new LogoSettings { Background = "Black" };
-    CreateLogo("W", "Assets/logo.png", settings);
-});
-
-Task("Wk").Does(() => {
-    var settings = new LogoSettings { Background = "Black" };
-    CreateLogo("wk", "Assets/wk.png", settings);
+    var settings = new LogoSettings { Background = "Green" };
+    CreateLogo("Github", "Assets/logo.png", settings);
 });
 
 Task("Publish-Nuget")
@@ -41,9 +37,16 @@ Task("Create-Nuget-Package")
     .Description("Create pack")
     .IsDependentOn("Build-Release")
     .Does(() => {
+
+        Func<string, string> abs = (path) => new FileInfo(path).FullName;
+
         CleanDirectory("./nuget");
         var dll = "./Cake.Watch/bin/Release/Cake.Watch.dll";
-        var full = new System.IO.FileInfo(dll).FullName;
+        var full = abs(dll);
+        var xml = abs(dll.Replace(".dll", ".XML"));
+        //var logo = CreateRawPath("cake-addin", "cake-watch", "Assets/logo.png");
+        var logo = "https://github.com/cake-addin/cake-watch/raw/master/Assets/logo.png";
+
         var version = ParseAssemblyInfo("./Cake.Watch/Properties/AssemblyInfo.cs").AssemblyVersion;
         var settings   = new NuGetPackSettings {
                                         //ToolPath                = "./tools/nuget.exe",
@@ -56,7 +59,7 @@ Task("Create-Nuget-Package")
                                         //NoDefaultExcludes       = true,
                                         Summary                 = "Watch file change",
                                         ProjectUrl              = new Uri("https://github.com/cake-addin/cake-watch"),
-                                        IconUrl                 = new Uri("https://raw.githubusercontent.com/cake-addin/cake-watch/master/Assets/logo.png"),
+                                        IconUrl                 = new Uri(logo),
                                         LicenseUrl              = new Uri("https://github.com/cake-addin/cake-watch"),
                                         Copyright               = "MIT",
                                         ReleaseNotes            = new [] { "New version"},
@@ -65,7 +68,8 @@ Task("Create-Nuget-Package")
                                         Symbols                 = false,
                                         NoPackageAnalysis       = true,
                                         Files                   = new [] {
-                                                                             new NuSpecContent { Source = full, Target = "bin/net45" }
+                                                                             new NuSpecContent { Source = full, Target = "bin/net45" },
+                                                                             new NuSpecContent { Source = xml , Target = "bin/net45" },
                                                                           },
                                         BasePath                = "./",
                                         OutputDirectory         = "./nuget"
