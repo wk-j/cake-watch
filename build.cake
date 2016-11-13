@@ -8,6 +8,11 @@ Task("Create-Logo").Does(() => {
     CreateLogo("W", "Assets/logo.png", settings);
 });
 
+Task("Wk").Does(() => {
+    var settings = new LogoSettings { Background = "Black" };
+    CreateLogo("wk", "Assets/wk.png", settings);
+});
+
 Task("Publish-Nuget")
     .IsDependentOn("Create-Nuget-Package")
     .Description("Push nuget")
@@ -51,7 +56,7 @@ Task("Create-Nuget-Package")
                                         //NoDefaultExcludes       = true,
                                         Summary                 = "Watch file change",
                                         ProjectUrl              = new Uri("https://github.com/cake-addin/cake-watch"),
-                                        IconUrl                 = new Uri("https://github.com/cake-addin/cake-watch/raw/master/Assets/logo.png"),
+                                        IconUrl                 = new Uri("https://raw.githubusercontent.com/cake-addin/cake-watch/master/Assets/logo.png"),
                                         LicenseUrl              = new Uri("https://github.com/cake-addin/cake-watch"),
                                         Copyright               = "MIT",
                                         ReleaseNotes            = new [] { "New version"},

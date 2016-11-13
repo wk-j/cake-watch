@@ -1,0 +1,8 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+    "files.exclude": {
+        "tools": true,
+        "nuget": true,
+        "packages": true
+    }
+}
