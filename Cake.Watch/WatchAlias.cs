@@ -14,11 +14,13 @@ namespace Cake.Watch {
 		/// Watch files in current directory.
 		/// </summary>
 		/// <example>
+		/// <code>
 		/// Watch("*.html", changes => {
 		///     changes.ToList().ForEach(change => {
 		///         Console.WriteLine(change.FullPath);        
 		///     });
 		/// });
+		/// </code>
 		/// </example>
 		/// <param name="context"></param>
 		/// <param name="pattern"></param>
@@ -35,6 +37,7 @@ namespace Cake.Watch {
 		/// Watch files that is specified by settings.
 		/// </summary>
 		/// <example>
+		/// <code>
 		/// var settings = new WatchSettings { Recursive = true, Path = "src", Pattern = "*.html" };
 		/// Watch(settings , (changes) => {
 		///     var list = changes.ToList();
@@ -42,6 +45,7 @@ namespace Cake.Watch {
 		///        Console.WriteLine(change.FullName);
 		///     });
 		/// })
+		/// </code>
 		/// </example>
 		/// <param name="context"></param>
 		/// <param name="settings"></param>
