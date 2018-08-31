@@ -1,5 +1,4 @@
-
-#r "../Cake.Watch/bin/Debug/Cake.Watch.dll"
+#r "../src/Cake.Watch/bin/Debug/net461/Cake.Watch.dll"
 
 using Cake.Watch;
 
