@@ -17,6 +17,8 @@ steps:
 - script: dotnet pack src/Cake.Watch/Cake.Watch.csproj --configuration $(buildConfiguration) /p:PackageVersion=$(version) --output $(Build.ArtifactStagingDirectory)
   displayName: 'Pack NuGet'
 
+- task: PublishBuildArtifacts@1
+
 - task: DotNetCoreInstaller@0
   inputs:
     version: '2.1.300'
