@@ -11,6 +11,9 @@ variables:
   version: '0.2.2'
 
 steps:
+- script: dotnet build src/Cake.Watch/Cake.Watch.csproj
+  displayName: "build packages"
+
 - script: dotnet pack src/Cake.Watch/Cake.Watch.csproj --configuration $(buildConfiguration) /p:PackageVersion=$(version)
   displayName: 'dotnet pack $(buildConfiguration)'
 
