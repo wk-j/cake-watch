@@ -2,7 +2,7 @@
     <PropertyGroup>
         <PackageId>Cake.Watch</PackageId>
         <Version>0.2.1</Version>
-        <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
+        <TargetFramework>netstandard2.0</TargetFramework>
         <PackageIconUrl>https://cdn.rawgit.com/cake-contrib/graphics/a5cf0f881c390650144b2243ae551d5b9f836196/png/cake-contrib-medium.png</PackageIconUrl>
     </PropertyGroup>
     <ItemGroup>
