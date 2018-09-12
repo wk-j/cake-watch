@@ -12,20 +12,11 @@ variables:
 
 steps:
 - script: dotnet build src/Cake.Watch/Cake.Watch.csproj
-  displayName: "build packages"
+  displayName: "Build Project"
 
-- script: dotnet pack src/Cake.Watch/Cake.Watch.csproj --configuration $(buildConfiguration) /p:PackageVersion=$(version)
-  displayName: 'dotnet pack $(buildConfiguration)'
+- script: dotnet pack src/Cake.Watch/Cake.Watch.csproj --configuration $(buildConfiguration) /p:PackageVersion=$(version) $(Build.ArtifactStagingDirectory)
+  displayName: 'Pack NuGet'
 
 - task: DotNetCoreInstaller@0
   inputs:
     version: '2.1.300'
-
-- task: NuGetCommand@2
-  inputs:
-    command: push
-    nuGetFeedType: external
-    publishFeedCredentials: 'NuGet'
-    versioningScheme: byEnvVar
-    versionEnvVar: version
-    packagesToPush: '**/*.nupkg'
