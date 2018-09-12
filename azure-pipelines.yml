@@ -14,7 +14,7 @@ steps:
 - script: dotnet build src/Cake.Watch/Cake.Watch.csproj
   displayName: "Build Project"
 
-- script: dotnet pack src/Cake.Watch/Cake.Watch.csproj --configuration $(buildConfiguration) /p:PackageVersion=$(version) $(Build.ArtifactStagingDirectory)
+- script: dotnet pack src/Cake.Watch/Cake.Watch.csproj --configuration $(buildConfiguration) /p:PackageVersion=$(version) --output $(Build.ArtifactStagingDirectory)
   displayName: 'Pack NuGet'
 
 - task: DotNetCoreInstaller@0
