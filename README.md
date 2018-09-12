@@ -1,5 +1,7 @@
 ## Cake.Watch
 
+[![Build Status](https://dev.azure.com/wk-j/cake-watch/_apis/build/status/wk-j.cake-watch)](https://dev.azure.com/wk-j/cake-watch/_build/latest?definitionId=7)
+
 Cake addin to watch files changed.
 
 ## Install
