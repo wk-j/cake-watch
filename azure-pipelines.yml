@@ -28,3 +28,4 @@ steps:
     publishFeedCredentials: 'NuGet'
     versioningScheme: byEnvVar
     versionEnvVar: version
+    packagesToPush: '**/*.nupkg'
