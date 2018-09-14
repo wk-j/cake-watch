@@ -19,6 +19,6 @@ steps:
 
 - task: PublishBuildArtifacts@1
 
-- task: DotNetCoreInstaller@0
-  inputs:
-    version: '2.1.300'
+# - task: DotNetCoreInstaller@0
+#   inputs:
+#     version: '2.1.300'
